@@ -34,4 +34,9 @@ public class PostService {
         post.update(postRequestDto);
         return new PostResponseDto(post);
     }
+
+    public void delete(Long id) {
+        Post post = postRepository.findById(id).orElseThrow();
+        postRepository.delete(post);
+    }
 }
