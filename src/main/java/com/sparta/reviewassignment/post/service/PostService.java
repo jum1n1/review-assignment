@@ -5,6 +5,7 @@ import com.sparta.reviewassignment.post.dto.PostResponseDto;
 import com.sparta.reviewassignment.post.entity.Post;
 import com.sparta.reviewassignment.post.repository.PostRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,5 +26,12 @@ public class PostService {
 
     public List<PostResponseDto> read() {
            return postRepository.findAll().stream().map(PostResponseDto::new).toList();
+    }
+
+    @Transactional
+    public PostResponseDto update(Long id, PostRequestDto postRequestDto) {
+        Post post = postRepository.findById(id).orElseThrow();
+        post.update(postRequestDto);
+        return new PostResponseDto(post);
     }
 }

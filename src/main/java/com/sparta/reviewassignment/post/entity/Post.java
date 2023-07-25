@@ -27,4 +27,9 @@ public class Post {
         this.nickName = postRequestDto.getNickName();
     }
 
+    public void update(PostRequestDto postRequestDto) {
+        this.name = postRequestDto.getName();
+        this.password = postRequestDto.getPassword();
+        this.nickName = postRequestDto.getNickName();
+    }
 }
