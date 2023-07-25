@@ -6,6 +6,9 @@ import com.sparta.reviewassignment.post.entity.Post;
 import com.sparta.reviewassignment.post.repository.PostRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class PostService {
 
@@ -17,7 +20,10 @@ public class PostService {
 
     public PostResponseDto create(PostRequestDto postRequestDto) {
         Post post = new Post(postRequestDto);
-//        postRepository.save(post);
         return new PostResponseDto(postRepository.save(post));
+    }
+
+    public List<PostResponseDto> read() {
+           return postRepository.findAll().stream().map(PostResponseDto::new).toList();
     }
 }
