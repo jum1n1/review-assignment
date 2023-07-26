@@ -1,6 +1,7 @@
 package com.sparta.reviewassignment.post.entity;
 
 import com.sparta.reviewassignment.post.dto.PostRequestDto;
+import com.sparta.reviewassignment.user.entity.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,11 +16,15 @@ public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
     private String name;
     private String password;
     private String nickName;
+
+    @ManyToOne
+    @JoinColumn(name ="user_id")
+    private User user;
 
     public Post(PostRequestDto postRequestDto){
         this.name = postRequestDto.getName();
