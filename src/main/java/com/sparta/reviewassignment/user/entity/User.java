@@ -1,6 +1,7 @@
 package com.sparta.reviewassignment.user.entity;
 
 import com.sparta.reviewassignment.post.entity.Post;
+import com.sparta.reviewassignment.user.dto.LoginRequestDto;
 import com.sparta.reviewassignment.user.dto.SignupRequestDto;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -31,6 +32,11 @@ public class User {
         this.nickName = signupRequestDto.getNickName();
         this.password = signupRequestDto.getPassword();
         this.checkPassword = signupRequestDto.getCheckPassword();
+    }
+
+    public User(LoginRequestDto loginRequestDto){
+        this.nickName = loginRequestDto.getNickName();
+        this.password = loginRequestDto.getPassword();
     }
 
 }
