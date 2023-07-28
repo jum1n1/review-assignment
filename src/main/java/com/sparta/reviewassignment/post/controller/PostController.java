@@ -3,6 +3,10 @@ package com.sparta.reviewassignment.post.controller;
 import com.sparta.reviewassignment.post.dto.PostRequestDto;
 import com.sparta.reviewassignment.post.dto.PostResponseDto;
 import com.sparta.reviewassignment.post.service.PostService;
+import com.sparta.reviewassignment.user.dto.MsgResponseDto;
+import com.sparta.reviewassignment.user.security.UserDetailsImpl;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,8 +22,15 @@ public class PostController {
     }
 
     @PostMapping("/posts")
-    public PostResponseDto create(@RequestBody PostRequestDto postRequestDto) {
-        return postService.create(postRequestDto);
+    public ResponseEntity<MsgResponseDto> create(@RequestBody PostRequestDto postRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+
+        try{
+            postService.create(postRequestDto,userDetails.getUser());
+            return ResponseEntity.ok().body(new MsgResponseDto("게시글 생성 완료!"));
+        } catch (NullPointerException e){ // NullPointerException 라는 exception 이 발생할 경우 실행
+            return ResponseEntity.badRequest().body(new MsgResponseDto("로그인 후 시도해주세요"));
+        }
+
     }
 
     @GetMapping("/posts")

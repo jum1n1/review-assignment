@@ -25,9 +25,10 @@ public class Post extends TimeStamped{
     @JoinColumn(name ="user_id")
     private User user;
 
-    public Post(PostRequestDto postRequestDto){
+    public Post(PostRequestDto postRequestDto, User user){
         this.title = postRequestDto.getTitle();
         this.nickName = postRequestDto.getNickName();
+        this.user = user;
     }
 
     public void update(PostRequestDto postRequestDto) {

@@ -4,6 +4,7 @@ import com.sparta.reviewassignment.post.dto.PostRequestDto;
 import com.sparta.reviewassignment.post.dto.PostResponseDto;
 import com.sparta.reviewassignment.post.entity.Post;
 import com.sparta.reviewassignment.post.repository.PostRepository;
+import com.sparta.reviewassignment.user.entity.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,8 +19,8 @@ public class PostService {
         this.postRepository = postRepository;
     }
 
-    public PostResponseDto create(PostRequestDto postRequestDto) {
-        Post post = new Post(postRequestDto);
+    public PostResponseDto create(PostRequestDto postRequestDto, User user) {
+        Post post = new Post(postRequestDto,user);
         return new PostResponseDto(postRepository.save(post));
     }
 
