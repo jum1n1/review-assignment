@@ -12,14 +12,13 @@ import lombok.Setter;
 @Setter
 @Table(name = "posts")
 @NoArgsConstructor // 생성자를 만들면 기본 생성자가 사라지기 떄문에 추가해줘야함
-public class Post {
+public class Post extends TimeStamped{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
-    private String password;
+    private String title;
     private String nickName;
 
     @ManyToOne
@@ -27,14 +26,12 @@ public class Post {
     private User user;
 
     public Post(PostRequestDto postRequestDto){
-        this.name = postRequestDto.getName();
-        this.password = postRequestDto.getPassword();
+        this.title = postRequestDto.getTitle();
         this.nickName = postRequestDto.getNickName();
     }
 
     public void update(PostRequestDto postRequestDto) {
-        this.name = postRequestDto.getName();
-        this.password = postRequestDto.getPassword();
+        this.title = postRequestDto.getTitle();
         this.nickName = postRequestDto.getNickName();
     }
 }
