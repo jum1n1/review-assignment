@@ -18,17 +18,23 @@ public class Post extends TimeStamped{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String title;
+
+    @Column(nullable = false)
     private String nickName;
 
     @ManyToOne
     @JoinColumn(name ="user_id")
     private User user;
 
-    public Post(PostRequestDto postRequestDto, User user){
+    public void setUser(User user){
+        this.user = user;
+    }
+
+    public Post(PostRequestDto postRequestDto){
         this.title = postRequestDto.getTitle();
         this.nickName = postRequestDto.getNickName();
-        this.user = user;
     }
 
     public void update(PostRequestDto postRequestDto) {

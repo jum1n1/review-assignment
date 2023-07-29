@@ -19,7 +19,7 @@ public class PostResponseDto {
         this.id = post.getId();
         this.title = post.getTitle();
         this.nickName = post.getNickName();
-        this.createAt = post.getCreateAt(); // 생성자에 포함안하면 null로 뜸
+        this.createAt = post.getCreateAt();
         this.modifiedAt = post.getModifiedAt();
     }
 }

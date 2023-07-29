@@ -1,13 +1,11 @@
 package com.sparta.reviewassignment.user.security;
 
 import com.sparta.reviewassignment.user.entity.User;
-import org.hibernate.sql.ast.tree.expression.Over;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 
 public class UserDetailsImpl implements UserDetails {
 

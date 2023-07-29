@@ -20,8 +20,11 @@ public class PostService {
     }
 
     public PostResponseDto create(PostRequestDto postRequestDto, User user) {
-        Post post = new Post(postRequestDto,user);
-        return new PostResponseDto(postRepository.save(post));
+        Post post = new Post(postRequestDto);
+        post.setUser(user); // user_id 저장
+
+        postRepository.save(post);
+        return new PostResponseDto(post);
     }
 
     public List<PostResponseDto> read() {
