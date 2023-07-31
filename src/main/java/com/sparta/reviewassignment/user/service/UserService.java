@@ -5,6 +5,7 @@ import com.sparta.reviewassignment.user.dto.SignupRequestDto;
 import com.sparta.reviewassignment.user.entity.User;
 import com.sparta.reviewassignment.user.jwt.JwtUtil;
 import com.sparta.reviewassignment.user.repository.UserRepository;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -40,7 +41,7 @@ public class UserService {
     }
 
 
-    public void login(LoginRequestDto loginRequestDto) {
+    public void login(LoginRequestDto loginRequestDto, HttpServletResponse res) {
         // 받은 정보를 그냥 저장하는 회원가입과 다르게 받은 정보를 확인하고 저장한 정보를 가져오는 거임
         String nickName = loginRequestDto.getNickName();
         String passWord = loginRequestDto.getPassword();
@@ -50,6 +51,9 @@ public class UserService {
         if(!user.getPassword().matches(passWord)){
             throw new IllegalArgumentException("비밀번호가 상이합니다.");
         }
+
+        String token = jwtUtil.createToken(user.getNickName());
+        jwtUtil.addJwtToCookie(token,res);
 
     }
 }

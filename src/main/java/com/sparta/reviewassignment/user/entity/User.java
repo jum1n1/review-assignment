@@ -17,10 +17,13 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String nickName;
 
+    @Column(nullable = false)
     private String password;
 
+    @Column(nullable = false)
     private String checkPassword;
 
     public User(SignupRequestDto signupRequestDto){

@@ -39,13 +39,22 @@ public class PostController {
     }
 
     @PutMapping("/posts/{id}")
-    public PostResponseDto update(@PathVariable Long id, @RequestBody PostRequestDto postRequestDto){
-        return postService.update(id, postRequestDto);
+    public ResponseEntity<MsgResponseDto> update(@PathVariable Long id, @RequestBody PostRequestDto postRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails){
+        try{
+            postService.update(id, postRequestDto, userDetails.getUser());
+        } catch (NullPointerException e){
+            return ResponseEntity.badRequest().body(new MsgResponseDto("로그인 후 시도해주세요"));
+        }
+        return ResponseEntity.ok().body(new MsgResponseDto("게시글 수정 완료!"));
     }
 
     @DeleteMapping("/posts/{id}")
-    public String delete(@PathVariable Long id){
-        postService.delete(id);
-        return "삭제완료!";
+    public ResponseEntity<MsgResponseDto> delete(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails){
+        try{
+            postService.delete(id,userDetails.getUser());
+        } catch (NullPointerException e){
+            return ResponseEntity.badRequest().body(new MsgResponseDto("로그인 후 시도해주세요"));
+        }
+        return ResponseEntity.ok().body(new MsgResponseDto("게시글 삭제 완료!"));
     }
 }

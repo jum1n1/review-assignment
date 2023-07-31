@@ -32,14 +32,24 @@ public class PostService {
     }
 
     @Transactional
-    public PostResponseDto update(Long id, PostRequestDto postRequestDto) {
+    public PostResponseDto update(Long id, PostRequestDto postRequestDto, User user) {
         Post post = postRepository.findById(id).orElseThrow();
+
+        if(!user.getId().equals(post.getUser().getId())){
+            throw new IllegalArgumentException("작성자만 수정 할 수 있습니다.");
+        }
+
         post.update(postRequestDto);
         return new PostResponseDto(post);
     }
 
-    public void delete(Long id) {
+    public void delete(Long id, User user) {
         Post post = postRepository.findById(id).orElseThrow();
+
+        if(!user.getId().equals(post.getUser().getId())){
+            throw new IllegalArgumentException("작성자만 수정 할 수 있습니다.");
+        }
+
         postRepository.delete(post);
     }
 }

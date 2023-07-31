@@ -39,13 +39,10 @@ public class UserController {
     public ResponseEntity<MsgResponseDto> login(@RequestBody LoginRequestDto loginRequestDto , HttpServletResponse res){
 
         try{
-            userService.login(loginRequestDto);
+            userService.login(loginRequestDto, res);
         } catch (NoSuchElementException e){
             return ResponseEntity.badRequest().body(new MsgResponseDto("닉네임 또는 패스워드를 확인해주세요."));
         }
-
-        // JWT 토큰 만들기
-        res.addHeader(JwtUtil.AUTHORIZATION_HEADER, jwtUtil.createToken(loginRequestDto.getNickName()));
         return ResponseEntity.ok().body(new MsgResponseDto("로그인 성공"));
     }
 
