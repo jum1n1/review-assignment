@@ -3,6 +3,7 @@ package com.sparta.reviewassignment.comment.entity;
 import com.sparta.reviewassignment.comment.dto.CommentRequestDto;
 import com.sparta.reviewassignment.post.entity.Post;
 import com.sparta.reviewassignment.post.entity.TimeStamped;
+import com.sparta.reviewassignment.user.entity.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,6 +29,10 @@ public class Comment extends TimeStamped {
     @ManyToOne
     @JoinColumn(name="post_id")
     private Post post;
+
+    @ManyToOne
+    @JoinColumn(name="user_id")
+    private User user;
 
     public void setPost(Post post){
         this.post = post;

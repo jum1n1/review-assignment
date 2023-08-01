@@ -25,7 +25,17 @@ public class CommentService {
         Post post  = postRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("선택한 게시글이 없습니다"));
         Comment comment = new Comment(commentRequestDto);
         comment.setPost(post);
+        comment.setUser(user);
 
         commentRepository.save(comment);
+    }
+    public void deleteComment(Long id, User user) {
+        Comment comment = commentRepository.findById(id).orElseThrow(() ->
+                new IllegalArgumentException("없는 댓글입니다."));
+
+        if(!user.getId().equals(comment.getUser().getId())){
+            throw new IllegalArgumentException("작성자만 수정할 수 있습니다");
+        }
+        commentRepository.delete(comment);
     }
 }
