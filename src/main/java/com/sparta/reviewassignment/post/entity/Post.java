@@ -1,11 +1,15 @@
 package com.sparta.reviewassignment.post.entity;
 
+import com.sparta.reviewassignment.comment.entity.Comment;
 import com.sparta.reviewassignment.post.dto.PostRequestDto;
 import com.sparta.reviewassignment.user.entity.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -27,6 +31,9 @@ public class Post extends TimeStamped{
     @ManyToOne
     @JoinColumn(name ="user_id")
     private User user;
+
+    @OneToMany(mappedBy = "post")
+    private List<Comment> commentList = new ArrayList<>();
 
     public void setUser(User user){
         this.user = user;
