@@ -5,12 +5,14 @@ import com.sparta.reviewassignment.post.entity.Post;
 import com.sparta.reviewassignment.post.entity.TimeStamped;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
 @Table(name ="comments")
+@NoArgsConstructor
 public class Comment extends TimeStamped {
 
     @Id

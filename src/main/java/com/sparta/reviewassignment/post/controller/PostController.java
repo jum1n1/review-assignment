@@ -1,5 +1,6 @@
 package com.sparta.reviewassignment.post.controller;
 
+import com.sparta.reviewassignment.post.dto.PostListResponseDto;
 import com.sparta.reviewassignment.post.dto.PostRequestDto;
 import com.sparta.reviewassignment.post.dto.PostResponseDto;
 import com.sparta.reviewassignment.post.service.PostService;
@@ -8,8 +9,6 @@ import com.sparta.reviewassignment.user.security.UserDetailsImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -34,8 +33,17 @@ public class PostController {
     }
 
     @GetMapping("/posts")
-    public List<PostResponseDto> read(){
-        return postService.read();
+    public ResponseEntity<PostListResponseDto> read(){
+        PostListResponseDto result = postService.read();
+
+        return ResponseEntity.ok().body(result);
+    }
+
+    @GetMapping("/posts/{id}")
+    public ResponseEntity<PostResponseDto> readId(@PathVariable Long id){
+        PostResponseDto result = postService.readId(id);
+
+        return ResponseEntity.ok().body(result);
     }
 
     @PutMapping("/posts/{id}")

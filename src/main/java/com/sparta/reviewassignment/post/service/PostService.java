@@ -1,5 +1,6 @@
 package com.sparta.reviewassignment.post.service;
 
+import com.sparta.reviewassignment.post.dto.PostListResponseDto;
 import com.sparta.reviewassignment.post.dto.PostRequestDto;
 import com.sparta.reviewassignment.post.dto.PostResponseDto;
 import com.sparta.reviewassignment.post.entity.Post;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PostService {
@@ -27,8 +29,15 @@ public class PostService {
         return new PostResponseDto(post);
     }
 
-    public List<PostResponseDto> read() {
-           return postRepository.findAllByOrderByCreateAtDesc().stream().map(PostResponseDto::new).toList();
+    public PostListResponseDto read() {
+        List<PostResponseDto> postList = postRepository.findAll().stream().map(PostResponseDto::new).collect(Collectors.toList());
+           return new PostListResponseDto(postList);
+    }
+
+    public PostResponseDto readId(Long id){
+        Post post = postRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("없는 게시물입니다."));
+
+        return new PostResponseDto(post);
     }
 
     @Transactional
@@ -52,4 +61,6 @@ public class PostService {
 
         postRepository.delete(post);
     }
+
+
 }

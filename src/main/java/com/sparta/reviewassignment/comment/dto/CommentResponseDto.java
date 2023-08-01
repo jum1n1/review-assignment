@@ -1,10 +1,13 @@
 package com.sparta.reviewassignment.comment.dto;
 
+import com.sparta.reviewassignment.comment.entity.Comment;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @Getter
+@Setter
 public class CommentResponseDto {
 
     private Long id;
@@ -12,5 +15,14 @@ public class CommentResponseDto {
     private String content;
     private LocalDateTime createAt;
     private LocalDateTime modifiedAt;
+
+    public CommentResponseDto(Comment comment){
+        super();
+        this.id = comment.getId();
+        this.title = comment.getTitle();
+        this.content = comment.getContent();
+        this.createAt = comment.getCreateAt();
+        this.modifiedAt = comment.getModifiedAt();
+    }
 
 }
