@@ -3,7 +3,6 @@ package com.sparta.reviewassignment.user.controller;
 import com.sparta.reviewassignment.user.dto.LoginRequestDto;
 import com.sparta.reviewassignment.user.dto.MsgResponseDto;
 import com.sparta.reviewassignment.user.dto.SignupRequestDto;
-import com.sparta.reviewassignment.user.jwt.JwtUtil;
 import com.sparta.reviewassignment.user.service.UserService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.ResponseEntity;
@@ -19,10 +18,8 @@ import java.util.NoSuchElementException;
 public class UserController {
 
     private final UserService userService;
-    private final JwtUtil jwtUtil;
-    public UserController(UserService userService,JwtUtil jwtUtil){
+    public UserController(UserService userService){
         this.userService = userService;
-        this.jwtUtil = jwtUtil;
     }
 
     @PostMapping("/signup")

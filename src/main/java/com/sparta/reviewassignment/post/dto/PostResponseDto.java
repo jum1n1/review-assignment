@@ -12,8 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 public class PostResponseDto {
-    // id이 선언은 엔티티에 하지만 ResponseDto에도 id 추가
-    
+
     private Long id;
     private String title;
     private String nickName;

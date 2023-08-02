@@ -23,7 +23,7 @@ public class UserService {
     public void signup(SignupRequestDto signupRequestDto) {
         User user = new User(signupRequestDto);
 
-        // 닉네임과 같은 값이 포함된 경우 => 아에 같은 경우에만 체크함
+        // 닉네임과 같은 값이 포함된 경우
         if (user.getPassword().contains(user.getNickName())) {
             throw new IllegalArgumentException("비밀번호를 닉네임과 다르게 입력해주세요.");
         }
