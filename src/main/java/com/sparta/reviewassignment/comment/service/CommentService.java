@@ -7,6 +7,7 @@ import com.sparta.reviewassignment.post.entity.Post;
 import com.sparta.reviewassignment.post.repository.PostRepository;
 import com.sparta.reviewassignment.user.entity.User;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class CommentService {
@@ -29,6 +30,17 @@ public class CommentService {
 
         commentRepository.save(comment);
     }
+
+    @Transactional
+    public void updateComment(Long id, CommentRequestDto commentRequestDto, User user) {
+        Comment comment = commentRepository.findById(id).orElseThrow();
+
+        if(!user.getId().equals(comment.getUser().getId())){
+            throw new IllegalArgumentException("작성자만 수정할 수 있습니다");
+        }
+
+        comment.update(commentRequestDto);
+    }
     public void deleteComment(Long id, User user) {
         Comment comment = commentRepository.findById(id).orElseThrow(() ->
                 new IllegalArgumentException("없는 댓글입니다."));
@@ -38,4 +50,6 @@ public class CommentService {
         }
         commentRepository.delete(comment);
     }
+
+
 }

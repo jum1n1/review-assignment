@@ -28,6 +28,16 @@ public class CommentController {
         return ResponseEntity.ok().body(new MsgResponseDto("댓글 달기 완료!"));
     }
 
+    @PutMapping("/comments/{id}")
+    public ResponseEntity<MsgResponseDto> updateComment(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails, @RequestBody CommentRequestDto commentRequestDto){
+        try {
+            commentService.updateComment(id,commentRequestDto,userDetails.getUser());
+        } catch (NullPointerException e){
+            return ResponseEntity.badRequest().body(new MsgResponseDto("로그인 후 시도해주세요"));
+        }
+        return ResponseEntity.ok().body(new MsgResponseDto("댓글 수정 완료!"));
+    }
+
     @DeleteMapping("/comments/{id}")
     public ResponseEntity<MsgResponseDto> deleteComment(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails){
 
