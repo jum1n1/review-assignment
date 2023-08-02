@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 public class CommentResponseDto {
 
     private Long id;
-    private String title;
     private String content;
     private LocalDateTime createAt;
     private LocalDateTime modifiedAt;
@@ -19,7 +18,6 @@ public class CommentResponseDto {
     public CommentResponseDto(Comment comment){
         super();
         this.id = comment.getId();
-        this.title = comment.getTitle();
         this.content = comment.getContent();
         this.createAt = comment.getCreateAt();
         this.modifiedAt = comment.getModifiedAt();

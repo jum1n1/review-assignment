@@ -21,9 +21,6 @@ public class Comment extends TimeStamped {
     private Long id;
 
     @Column(nullable = false)
-    private String title;
-
-    @Column(nullable = false)
     private String content;
 
     @ManyToOne
@@ -39,7 +36,6 @@ public class Comment extends TimeStamped {
     }
 
     public Comment(CommentRequestDto commentRequestDto){
-        this.title = commentRequestDto.getTitle();
         this.content = commentRequestDto.getContent();
     }
 }
